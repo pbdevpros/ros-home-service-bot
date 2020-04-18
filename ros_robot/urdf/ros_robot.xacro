@@ -231,5 +231,14 @@
     <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
+  <!-- RGBD CAMERA - JOINT -->
+  <joint type="fixed" name="camera_optical_joint">
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+    <child link="camera_link_optical"/>
+    <parent link="camera_link"/>
+  </joint>
+
+  <link name="camera_link_optical">
+  </link>
 
 </robot>
