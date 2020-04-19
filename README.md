@@ -48,6 +48,8 @@ Hit Yes to using database parameters.
 Open Constraints View
 Open Graph View
 
+A link to a Google Drive folder, with the database generated from mapping the environment, in the GitHub description.
+
 ### Using Generated Database
 By default, the database is deleted upon launching ROS again. In order to use the previous ```rtabmap.db```, a different launch file needs to be used, when launching RTAB Map package.
 
