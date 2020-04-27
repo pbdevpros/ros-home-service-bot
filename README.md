@@ -13,6 +13,16 @@ $ cd src
 $ catkin_init_workspace
 ```
 
+### Installing Dependencies
+Install the following ROS packages directly from source,
+```bash
+$ cd src
+$ git clone https://github.com/ros-perception/slam_gmapping.git
+$ git clone https://github.com/turtlebot/turtlebot.git
+$ git clone https://github.com/turtlebot/turtlebot_interactions.git
+$ git clone https://github.com/turtlebot/turtlebot_simulator.git
+```
+
 ### Building Packages
 ```bash
 $ cd catkin_ws
