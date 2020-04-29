@@ -1,6 +1,7 @@
 <launch>
   <!-- Map Server  -->
-  <arg name="map_file" default="$(find ros_robot)/maps/houseredone.yaml"/>
+  <arg name="map_location_filepath"     default="/home/workspace/catkin_ws/src/map/map.yaml"/>
+  <arg name="map_file" default="$(arg map_location_filepath)"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>  
   <!-- AMCL Node -->
   <node name="amcl" pkg="amcl" type="amcl" output="screen">
@@ -13,8 +14,8 @@
     <param name="min_particles" value="200"/>		  <!-- high min means larger number of estimates for amcl algo -->
     <param name="max_particles" value="1000"/>		<!-- high max means larger number of estimates for amcl algo -->
     <param name="initial_pose_x" value="-5.5"/>	<!-- initial pose, should match world.launch file -->
-    <param name="initial_pose_y" value="5.5"/>		<!-- initial pose, should match world.launch file -->
-    <param name="initial_pose_a" value="1.5708"/>  <!-- initial pose, should match world.launch file -->
+    <param name="initial_pose_y" value="-5.5"/>		<!-- initial pose, should match world.launch file -->
+    <param name="initial_pose_a" value="0.00"/>  <!-- initial pose, should match world.launch file -->
     <param name="update_min_d" value="0.05"/>		  <!-- when low, updates will take place more often for translation movement -->
     <param name="update_min_a" value="0.2613"/>		<!-- when low, updates will take place more often for angular movement -->
 

@@ -53,18 +53,21 @@
 
       <!-- Set to false to put the robot into localization mode -->
       <param name="Mem/IncrementalMemory" type="string" value="false"/>
+
+     <!-- set localization params -->
+     <param name="localization" type="string" value="true"/>
     </node>
     
     <!-- visualization with rtabmapviz * not used for simulation -->
-    <!-- <node pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(find rtabmap_ros)/launch/config/rgbd_gui.ini" output="screen">
+    <node pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(find rtabmap_ros)/launch/config/rgbd_gui.ini" output="screen">
         <param name="subscribe_depth"             type="bool" value="true"/>
         <param name="subscribe_scan"              type="bool" value="true"/>
-        <param name="frame_id"                    type="string" value="base_footprint"/>
+        <param name="frame_id"                    type="string" value="robot_footprint"/>
 
         <remap from="rgb/image"       to="$(arg rgb_topic)"/>
         <remap from="depth/image"     to="$(arg depth_topic)"/>
         <remap from="rgb/camera_info" to="$(arg camera_info_topic)"/>
-        <remap from="scan"            to="/scan"/>
-    </node> -->
+        <remap from="scan"            to="/scan"/> 
+    </node>
   </group>
 </launch>
