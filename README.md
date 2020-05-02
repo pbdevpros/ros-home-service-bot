@@ -32,3 +32,4 @@ $ ./src/scripts/test_slam.sh <homeDirectory> # Input argument is optional - shou
 ```
 
 
+catkin_create_pkg add_markers roscpp visualization_msgs
