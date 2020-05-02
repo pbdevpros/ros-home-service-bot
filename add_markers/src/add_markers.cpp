@@ -1,24 +1,13 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
-#include <std_msgs/Float64.h>
-#include <nav_msgs/Odometry.h>
 
 bool isInLocation; 	// global flag 
-double x; 			// global coordinate
-double y; 			// global coordinate
+double x;
+double y;
 double x_initial = -5.5653; // pickup x goal
 double y_initial = -1.7143; // pickup y goal
 double x_final = -1.8893;	// dropoff x goal
 double y_final = -5.613;	// dropoff y goal
-
-void odom_callback(const nav_msgs::Odometry msg)
-{ 
-  ROS_WARN_ONCE("Position is %f, %f", msg.pose.pose.position.x, msg.pose.pose.position.y);
-  if ( msg.pose.pose.position.x == x &&  msg.pose.pose.position.y == y) {
-   isInLocation = true; 
-  }
-}
-
 
 int main( int argc, char** argv )
 {
@@ -29,8 +18,14 @@ int main( int argc, char** argv )
   
   // setup subscriber node
   isInLocation = false;
-  ros::NodeHandle n_odom;
-  ros::Subscriber sub = n.subscribe("odom", 20, odom_callback);
+
+  // set up parameter
+  ros::NodeHandle nh("/pick_objects");
+  bool isParam = false;
+  if (nh.hasParam("/isInPickupLocation") && nh.hasParam("/isInDropOffLocation")) {
+    ROS_INFO("Found state flags for pick_objects node.");
+    nh.getParam("/isInPickupLocation", isParam);
+  }
 
   // Set our initial shape type to be a cube
   uint32_t shape = visualization_msgs::Marker::CUBE;
@@ -88,14 +83,16 @@ int main( int argc, char** argv )
   marker_pub.publish(marker);
 
   // wait until at location
-  while (!isInLocation) {
-    ros::spinOnce();
+  while (!isInLocation) { 
+    nh.getParam("/isInPickupLocation", isParam);
+    isInLocation = isParam;    
     r.sleep();
   }
   sleep(5);
   x = x_final;
   y = y_final;
   isInLocation = false;
+  isParam = false;
   
   // hide the marker and sleep for 5 seconds
   marker.action = visualization_msgs::Marker::DELETE;
@@ -112,7 +109,8 @@ int main( int argc, char** argv )
   
   // wait until at location
   while (!isInLocation) {
-    ros::spinOnce();
+    nh.getParam("/isInDropOffLocation", isParam);
+    isInLocation = isParam;    
     r.sleep();
   }
 

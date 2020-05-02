@@ -14,6 +14,11 @@ int main(int argc, char** argv){
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
 
+  // set up parameter to track the robots state
+  ros::NodeHandle nh;
+  nh.setParam("/isInPickupLocation", false);
+  nh.setParam("/isInDropOffLocation", false);
+
   // Wait 5 sec for move_base action server to come up
   while(!ac.waitForServer(ros::Duration(5.0))){
     ROS_INFO("Waiting for the move_base action server to come up");
@@ -46,13 +51,12 @@ int main(int argc, char** argv){
 
   // Check if the robot reached its goal
   if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Hooray, the base moved 1 meter forward");
+    ROS_INFO("Hooray, home service robot reached the pickup location.");
   else
-    ROS_INFO("The base failed to move forward 1 meter for some reason");
+    ROS_INFO("Failed to find the pickup location...");
 
-    // sleep for 5 seconds 
-   // std::this_thread::sleep_for (std::chrono::seconds(5));
-
+  // set a parameter to inform that the robot has reached the pickup location
+  nh.setParam("/isInPickupLocation", true);
 
   // Define a position and orientation for the robot to reach
   goal.target_pose.pose.position.x = goal_final_x;
@@ -72,8 +76,8 @@ int main(int argc, char** argv){
   else
     ROS_INFO("The base failed to move forward 2 meter for some reason");
 
-    // sleep for 5 seconds 
-  //  std::this_thread::sleep_for (std::chrono::seconds(5));
+  // alert that the location has been reached
+  nh.setParam("/isInDropOffLocation", true);
 
 
   return 0;
