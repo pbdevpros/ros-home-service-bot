@@ -17,7 +17,7 @@ sleep 10
 xterm -e " source ${home}/setup.bash ; roslaunch ros_robot view_navigation.launch " & 	# use rviz with markers
 sleep 30
 xterm -e " source ${home}/setup.bash ; rosrun pick_objects pick_objects " & # send location for autonomous navigation
-sleep 10
+sleep 5
 xterm -e " source ${home}/setup.bash ; rosrun add_markers add_markers " & # draw shapes in Rviz
 
 
