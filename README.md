@@ -14,27 +14,17 @@ Mapping was completed using a ROS wrapper for OpenSlam's Gmapping, using the ``g
 ```bash
 $ mkdir catkin_ws
 $ cd catkin_ws
-$ git clone <project> src
+$ git clone --recurse-submodules <project> src # make sure to include submodules option
 $ cd src
 $ catkin_init_workspace
-```
-
-### Installing Dependencies
-Install the following ROS packages directly from source,
-```bash
-$ cd src
-$ git clone https://github.com/ros-perception/slam_gmapping.git
-$ git clone https://github.com/turtlebot/turtlebot.git
-$ git clone https://github.com/turtlebot/turtlebot_interactions.git
-$ git clone https://github.com/turtlebot/turtlebot_simulator.git
-$ git clone https://github.com/ros-teleop/teleop_twist_keyboard.git
 ```
 
 ### Launching Autonomous Home Service Robot
 ```bash
 $ cd catkin_ws
 $ catkin_make
-$ ./src/scripts/home_service.sh <homeDirectory> # Input argument is optional - should be a path to the catkin\_ws folder
+$ cd devel # move to folder where setup.bash exists, to source workspace
+$ ../src/scripts/home_service.sh
 ```
 
 ### Notes on initial bringup
@@ -50,7 +40,8 @@ Each section of the project, mapping, localization, path planning and visualizat
 ```bash
 $ cd catkin_ws
 $ catkin_make
-$ ./src/scripts/test_slam.sh <homeDirectory> # run gmapping SLAM package
+$ cd devel
+$ ../src/scripts/test_slam.sh # run gmapping SLAM package
 ...
 $ rosrun map_server map_saver # save the map created
 ```
@@ -58,17 +49,20 @@ $ rosrun map_server map_saver # save the map created
 ```bash
 $ cd catkin_ws
 $ catkin_make
-$ ./src/scripts/test_navigation.sh <homeDirectory> # run AMCL and ROS Navigational stack 
+$ cd devel
+$ ../src/scripts/test_navigation.sh # run AMCL and ROS Navigational stack 
 ```
 
 ```bash
 $ cd catkin_ws
 $ catkin_make
-$ ./src/scripts/pick_objects.sh <homeDirectory> # run pick_objects node (give location updates to robot to autonomously move)
+$ cd devel
+$ ../src/scripts/pick_objects.sh  # run pick_objects node (give location updates to robot to autonomously move)
 ```
 
 ```bash
 $ cd catkin_ws
 $ catkin_make
-$ ./src/scripts/add_marker.sh <homeDirectory> # run add_marker node (deprecated as it is now dependent on pick_objects)
+$ cd devel
+$ ../src/scripts/add_marker.sh # run add_marker node (deprecated as it is now dependent on pick_objects)
 ```

@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
 <launch>
   <!-- Map Server  -->
-  <arg name="map_location_filepath"     default="/home/workspace/catkin_ws/src/map/map.yaml"/>
+  <arg name="map_location_filepath"     default="$(find ros_robot)/map/slam_test_map.yaml"/>
   <arg name="map_file" default="$(arg map_location_filepath)"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>  
   <!-- AMCL Node -->

@@ -1,4 +1,4 @@
-image: map.pgm
+image: slam_test_map.pgm
 resolution: 0.050000
 origin: [-7.424623, -8.499622, 0.000000]
 negate: 0
